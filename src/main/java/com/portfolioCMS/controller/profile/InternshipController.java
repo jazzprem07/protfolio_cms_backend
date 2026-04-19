@@ -1,0 +1,49 @@
+/**
+ * @author Prem kumar
+ * @date 4/4/26
+ * Copyright © 2026
+ */
+package com.portfolioCMS.controller.profile;
+
+
+import com.portfolioCMS.dto.InternshipDTO;
+import com.portfolioCMS.dto.ResponseDTO;
+import com.portfolioCMS.service.profile.IInternshipService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/internship")
+public class InternshipController {
+    private final IInternshipService service;
+
+    public InternshipController(IInternshipService service) {
+        super();
+        this.service = service;
+    }
+
+    @PostMapping("create")
+    public ResponseEntity<ResponseDTO> create(@Valid @RequestBody InternshipDTO req){
+        ResponseDTO res = service.create(req);
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("getall")
+    public ResponseEntity<?> getAll(){
+        ResponseDTO res = service.getAll();
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("getbyid/{id}")
+    public ResponseEntity<?> getById(@PathVariable int id){
+        ResponseDTO res = service.getById(id);
+        return ResponseEntity.ok(res);
+    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,@Valid @RequestBody InternshipDTO req){
+        ResponseDTO res = service.update(id,req);
+        return ResponseEntity.ok(res);
+    }
+}
